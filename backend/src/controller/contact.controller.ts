@@ -32,11 +32,12 @@ export const createContact = async (
 
     await contactRepository.save(data);
     await sendMail({
-      to: email,
+      to: "info@ashiqpradeep.com",
       subject: "New Contact Form Submission",
       templateName: "contact",
       data,
     });
+
     return res
       .status(201)
       .json({ message: "Your contact details saved successfully." });
