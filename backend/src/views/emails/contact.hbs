@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>New Contact Form Submission</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ccc; }
+    .header { background-color: #f4f4f4; padding: 10px; text-align: center; }
+    .footer { background-color: #f4f4f4; padding: 10px; text-align: center; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>New Contact Form Submission</h1>
+    </div>
+    <p>Dear Admin,</p>
+    <p>You have received a new contact form submission. Here are the details:</p>
+    <p><strong>Full Name:</strong> {{full_name}}</p>
+    <p><strong>Email Address:</strong> {{email}}</p>
+    <p><strong>Message:</strong></p>
+    <p>{{message}}</p>
+    <p>Please review and respond as necessary.</p>
+    <div class="footer">
+      <p>© 2024 Your Company. All rights reserved.</p>
+      <p>Contact us at support@yourcompany.com</p>
+    </div>
+  </div>
+</body>
+</html>
