@@ -1460,3 +1460,59 @@ iframe {
     width: 60%;
   }
 }
+
+.certificate-section {
+  position: relative;
+  min-height: 10rem;
+  overflow: hidden;
+}
+
+.certificate-section > h1 {
+  /* text-align: center;
+  font-size: 2.5rem; */
+}
+
+/* .marquee {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee::before,
+.marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 1;
+  pointer-events: none;
+  filter: blur(20px);
+}
+
+.marquee::before {
+  left: 0;
+  background: linear-gradient(
+    to right,
+    rgb(250, 250, 250),
+    rgba(235, 235, 235, 0)
+  );
+} */
+
+.marquee::after {
+  right: 0;
+}
+
+.certificate-link {
+  margin-right: 5rem !important;
+}
+
+.certificate-container {
+  height: 8rem;
+  width: 100%;
+}
+
+.certificate-container > img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}

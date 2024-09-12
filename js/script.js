@@ -118,4 +118,18 @@ $(document).ready(function () {
 
     $("#image-dialog")[0].close();
   });
+
+  $(".marquee").marquee({
+    allowCss3Support: true,
+    css3easing: "linear",
+    easing: "linear",
+    delayBeforeStart: -100,
+    direction: "left",
+    duplicated: true,
+    duration: 11000,
+    // gap: "5em",
+    pauseOnCycle: false,
+    pauseOnHover: true,
+    startVisible: false,
+  });
 });
