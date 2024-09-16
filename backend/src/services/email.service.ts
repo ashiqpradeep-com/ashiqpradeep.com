@@ -1,8 +1,8 @@
+import fs from "fs";
 import hbs from "handlebars";
 import path from "path";
-import fs from "fs";
-import { appconfig } from "../config/appConfig";
-import transporter from "../config/nodemailer";
+import { appConfig } from "../config/app.config";
+import transporter from "../config/nodemailer.config";
 import { AppException } from "../lib/app-exception";
 
 interface IMail {
@@ -30,7 +30,7 @@ const sendMail = async ({ to, subject, templateName, data }: IMail) => {
     const html = compileTemplate(templateName, data);
 
     const mailOptions = {
-      from: `AshiqPradeep <${appconfig.SMTP_USER}>`,
+      from: `${appConfig.SMTP_USER_NAME} <${appConfig.SMTP_USER}>`,
       to,
       subject,
       html,

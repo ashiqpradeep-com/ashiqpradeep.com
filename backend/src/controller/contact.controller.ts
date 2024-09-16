@@ -1,49 +1,48 @@
 import { NextFunction, Request, Response } from "express";
 import { AppException } from "../lib/app-exception";
-import Contact from "../models/contact";
-import contactRepository from "../repository/contact.repository";
+import contactService from "../services/contact.service";
 import sendMail from "../services/email.service";
-
-type ContactRequestBody = {
-  fullName: string;
-  email: string;
-  message?: string;
-};
+import { IContact } from "../types/contact.interface";
+import { appConfig } from "../config/app.config";
 
 export const createContact = async (
-  req: Request<{}, {}, ContactRequestBody>,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const { email, fullName, message } = req.body;
   try {
-    const result = await contactRepository.retrieveByEmail(email);
+    const { fullName, email, message }: IContact = req.body;
 
-    if (result.length > 0) {
-      throw new AppException(409, "Oops, email already exist");
+    // Check if the email already exists
+    const existingContact = await contactService.getContactDetailsByEmail(
+      email
+    );
+
+    if (existingContact.length > 0) {
+      throw new AppException(409, "Oops, email already exists");
     }
 
-    const data: Contact = {
+    // Create a new contact
+    const newContact = await contactService.registerContact({
+      fullName,
       email,
-      full_name: fullName,
       message,
       created_at: new Date(),
-    };
-
-    await contactRepository.save(data);
-    await sendMail({
-      to: "info@ashiqpradeep.com",
-      subject: "New Contact Form Submission",
-      templateName: "contact",
-      data,
     });
 
-    return res
-      .status(201)
-      .json({ message: "Your contact details saved successfully." });
-  } catch (error) {
-    console.log(error);
+    // Send confirmation email
+    await sendMail({
+      to: appConfig.ADMIN_EMAIL,
+      subject: "New Contact Form Submission",
+      templateName: "contact",
+      data: { fullName, email, message },
+    });
 
+    return res.status(201).json({
+      message: "Your contact details have been saved successfully.",
+      data: newContact,
+    });
+  } catch (error) {
     next(error);
   }
 };

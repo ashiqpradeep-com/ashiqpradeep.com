@@ -1,11 +1,11 @@
 import mysql from "mysql2/promise";
-import { appconfig } from "./appConfig";
+import { appConfig } from "./app.config";
 
-const pool = mysql.createPool({
-  host: appconfig.DB_HOST,
-  user: appconfig.DB_USER,
-  password: appconfig.DB_PASS,
-  database: appconfig.DB_NAME,
+const db = mysql.createPool({
+  host: appConfig.DB_HOST,
+  user: appConfig.DB_USER,
+  password: appConfig.DB_PASS,
+  database: appConfig.DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
@@ -13,7 +13,7 @@ const pool = mysql.createPool({
 
 export async function initDB() {
   try {
-    const connection = await pool.getConnection();
+    const connection = await db.getConnection();
     console.log("Database connection established successfully.");
 
     const createTableQuery = `
@@ -38,4 +38,4 @@ export async function initDB() {
   }
 }
 
-export default pool;
+export default db;
